@@ -4,4 +4,5 @@ class TestDemo:
         print("hello jenkins!")
 
     def test_2(self):
-        print("i am back!")
+        a = "a"
+        print(f"i am back!{a}")
