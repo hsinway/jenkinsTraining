@@ -1,39 +1,41 @@
 pipeline {
     agent any
 
-    stages {
-        stage('begin') {
-            steps {
-                echo 'Hello pipeline demo begin'
-                sleep 3
+    node('slave_2'){
+        stages {
+            stage('begin') {
+                steps {
+                    echo 'Hello pipeline demo begin'
+                    sleep 3
+                }
+            }
+            stage('running') {
+                steps{
+                    echo 'hello pipeline demo running'
+                    sleep 3
+                }
+            }
+            stage('finish') {
+                steps{
+                    echo 'hello pipeline demo finish'
+                    sleep 3
+                    // sh 'exit 0'
+                }
             }
         }
-        stage('running') {
-            steps{
-                echo 'hello pipeline demo running'
+        post {
+            success {
+                echo 'goodbye pipline success!'
                 sleep 3
             }
-        }
-        stage('finish') {
-            steps{
-                echo 'hello pipeline demo finish'
+            failure {
+                echo 'ops!!! pipline failed...'
                 sleep 3
-                // sh 'exit 0'
             }
-        }
-    }
-    post {
-        sucess {
-            echo 'goodbye pipline success!'
-            sleep 3
-        }
-        failure {
-            echo 'ops!!! pipline failed...'
-            sleep 3
-        }
-        always {
-            echo 'always say goodbye'
-            sleep 3
+            always {
+                echo 'always say goodbye'
+                sleep 3
+            }
         }
     }
 }
